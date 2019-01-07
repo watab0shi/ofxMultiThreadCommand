@@ -23,7 +23,7 @@ ofxCommandThread::~ofxCommandThread()
 
 // setCallback
 //----------------------------------------
-void ofxCommandThread::setCallback( const shared_ptr< Callback > _callback )
+void ofxCommandThread::setCallback( const std::shared_ptr< Callback > _callback )
 {
   callback = _callback;
 }
@@ -64,7 +64,7 @@ int ofxCommandThread::getNumQueue()
 // thanks to: http://stackoverflow.com/questions/478898/how-to-execute-a-command-and-get-output-of-command-within-c
 // exec
 //----------------------------------------
-string ofxCommandThread::exec( char* _cmd )
+std::string ofxCommandThread::exec( char* _cmd )
 {
 #ifdef TARGET_OSX
   FILE* pipe = popen( _cmd, "r" );
@@ -107,7 +107,7 @@ void ofxCommandThread::threadedFunction()
 //--------------------------------------------------------------------------------
 ofxMultiThreadCommand::ofxMultiThreadCommand()
 {
-  callback = make_shared< ofxCommandThread::Callback >( [ this ]( ofxCommandThread::Arg& _a ){
+  callback = std::make_shared< ofxCommandThread::Callback >( [ this ]( ofxCommandThread::Arg& _a ){
     ofNotifyEvent( commandComplete, _a, this );
   } );
   for( auto& t : threads ) t.setCallback( callback );

@@ -15,14 +15,14 @@ public:
   
   struct Arg
   {
-    string timestamp;
-    string cmd;
-    string result;
+    std::string timestamp;
+    std::string cmd;
+    std::string result;
   };
   
   using Callback = std::function< void( ofxCommandThread::Arg& ) >;
   
-  void setCallback( const shared_ptr< Callback > _callback );
+  void setCallback( const std::shared_ptr< Callback > _callback );
   
   void update();
   
@@ -30,7 +30,7 @@ public:
   
   int  getNumQueue();
   
-  string exec( char* _cmd );
+  std::string exec( char* _cmd );
   
 private:
   void threadedFunction();
@@ -39,7 +39,7 @@ private:
   ofThreadChannel< Arg > queue_after;
   int                    numQueue;
   
-  shared_ptr< Callback > callback;
+  std::shared_ptr< Callback > callback;
 };
 
 
@@ -62,5 +62,5 @@ public:
 private:
   const static int                         NUM_THREADS = 2;
   ofxCommandThread                         threads[ NUM_THREADS ];
-  shared_ptr< ofxCommandThread::Callback > callback = nullptr;
+  std::shared_ptr< ofxCommandThread::Callback > callback = nullptr;
 };
